@@ -2,9 +2,9 @@
 #define LM323749_PWM_H
 #include <bsp/utility.h>
 
-#define LM3S3749_UART_BASE 0x40028000
+#define LM3S69XX_UART_BASE 0x40028000
 
-#define LM3S3749_PWM ((volatile lm3s3749_pwm *)LM3S3749_UART_BASE)
+#define LM3S69XX_PWM ((volatile lm3s69xx_pwm *)LM3S69XX_UART_BASE)
 
 typedef struct {
 #define PWMCTL_LATCH BSP_BIT32(18)
@@ -50,13 +50,13 @@ typedef struct {
   uint32_t fltsrc0;
   uint32_t reserved;
   uint32_t minfiltper;
-} lm3s3749_pwm_channel;
+} lm3s69xx_pwm_channel;
 
 typedef struct {
   uint32_t fltsen;
   uint32_t fltstat0;
   uint32_t reserved[30];
-} lm3s3749_pwm_fault;
+} lm3s69xx_pwm_fault;
 
 typedef struct {
   uint32_t ctl;
@@ -75,11 +75,11 @@ typedef struct {
 
   uint32_t reserved_0[6];
 
-  lm3s3749_pwm_channel chans[4];
+  lm3s69xx_pwm_channel chans[4];
 
   uint32_t reserved_1[432];
 
-  lm3s3749_pwm_fault faults[4];
-} lm3s3749_pwm;
+  lm3s69xx_pwm_fault faults[4];
+} lm3s69xx_pwm;
 
 #endif

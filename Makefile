@@ -4,7 +4,7 @@
 
 PGM=${ARCH}/test.exe
 
-CSRCS = init.c main.c l3g4200d.c gyroscope.c pwm.c
+CSRCS = init.c main.c l3g4200d.c gyroscope.c pwm.c rx.c
 COBJS = $(CSRCS:%.c=${ARCH}/%.o)
 
 include $(RTEMS_MAKEFILE_PATH)/Makefile.inc

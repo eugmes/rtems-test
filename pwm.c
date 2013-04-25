@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <rtems/shell.h>
-#include <bsp/lm3s3749.h>
+#include <bsp/lm3s69xx.h>
 #include <bsp/syscon.h>
-#include "lm3s3749-pwm.h"
+#include "lm3s69xx-pwm.h"
 
 #define PWM_DIV_SETTING 4
-#define PWM_FREQUENCY (LM3S3749_SYSTEM_CLOCK / PWM_DIV_SETTING)
+#define PWM_FREQUENCY (LM3S69XX_SYSTEM_CLOCK / PWM_DIV_SETTING)
 #define US_TO_PWM_TICKS(usecs) ((((uint64_t)PWM_FREQUENCY) * (usecs) / 1000000) - 1)
 
 #define PWM_PERIOD_US 5000 // 200 Hz
@@ -17,8 +17,8 @@
 
 void set_width(unsigned int width)
 {
-  volatile lm3s3749_pwm *pwm = LM3S3749_PWM;
-  volatile lm3s3749_pwm_channel *chan0 = &pwm->chans[0];
+  volatile lm3s69xx_pwm *pwm = LM3S69XX_PWM;
+  volatile lm3s69xx_pwm_channel *chan0 = &pwm->chans[0];
 
   chan0->cmpa = US_TO_PWM_TICKS(PWM_PERIOD_US - width);
 }
@@ -47,11 +47,11 @@ rtems_shell_cmd_t Shell_PWM_Command = {
 void init_pwms(void)
 {
   printf("Initializing PWM\n");
-  lm3s3749_syscon_enable_pwm_clock(true);
-  lm3s3749_syscon_set_pwmdiv(SYSCONRCC_PWMDIV_DIV4_VAL);
+  lm3s69xx_syscon_enable_pwm_clock(true);
+  lm3s69xx_syscon_set_pwmdiv(SYSCONRCC_PWMDIV_DIV4_VAL);
 
-  volatile lm3s3749_pwm *pwm = LM3S3749_PWM;
-  volatile lm3s3749_pwm_channel *chan0 = &pwm->chans[0];
+  volatile lm3s69xx_pwm *pwm = LM3S69XX_PWM;
+  volatile lm3s69xx_pwm_channel *chan0 = &pwm->chans[0];
 
   chan0->ctl = 0; // FIXME
   chan0->gena = 0x8c; // FIXME

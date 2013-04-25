@@ -8,7 +8,7 @@
 #include <rtems/libi2c.h>
 #include "l3g4200d.h"
 
-#define SSI_SS_PIN LM3S3749_GPIO_PIN(LM3S3749_PORT_E, 1)
+#define SSI_SS_PIN LM3S69XX_GPIO_PIN(LM3S69XX_PORT_E, 1)
 
 #define NUM_OFFSET_SAMPLES 100
 
@@ -105,8 +105,8 @@ void gyroscope_init(int spi_bus_num)
 {
   printf("Initializing gyroscope...\n");
 
-  lm3s3749_gpio_set_pin(SSI_SS_PIN, true);
-  lm3s3749_gpio_digital_enable(SSI_SS_PIN, true);
+  lm3s69xx_gpio_set_pin(SSI_SS_PIN, true);
+  lm3s69xx_gpio_digital_enable(SSI_SS_PIN, true);
 
   rtems_device_minor_number minor = RTEMS_LIBI2C_MAKE_MINOR(spi_bus_num, SSI_SS_PIN);
 
